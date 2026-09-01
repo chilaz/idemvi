@@ -1,0 +1,12 @@
+services:
+  api:
+    image: denoland/deno:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:8000"
+    command: ["deno", "run", "--watch", "--allow-net", "--allow-env", "main.ts"]
+    env_file:
+      - /run/base44/app.env
+    restart: unless-stopped

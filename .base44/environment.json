@@ -1,0 +1,12 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "IDEMVI_API_KEY",
+      "description": "The shared API key clients must send in the X-API-Key header.",
+      "requiredAtBoot": false
+    }
+  ]
+}
