@@ -1,0 +1,25 @@
+services:
+  api:
+    image: denoland/deno:2.5.6
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:8000"
+    command: ["deno", "run", "--watch", "--allow-net", "--allow-env", "main.ts"]
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    healthcheck:
+      test:
+        - CMD
+        - deno
+        - eval
+        - |
+          const r = await fetch("http://127.0.0.1:8000/");
+          if (r.status !== 200) { console.error("unexpected status " + r.status); Deno.exit(1); }
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: on-failure
